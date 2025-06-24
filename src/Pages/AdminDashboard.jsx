@@ -79,12 +79,7 @@ const AdminDashboard = () => {
           >
             تحميل Excel
           </button>
-          <button
-            onClick={exportToPDF}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
-          >
-            تحميل PDF
-          </button>
+   
         </div>
       </div>
 
