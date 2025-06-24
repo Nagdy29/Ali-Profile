@@ -9,7 +9,7 @@ const Navv = () => {
     <nav className="flex items-center gap-11 justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 border-b border-gray-300 bg-white relative transition-all z-50">
       {/* لوجو */}
       <Link to="/" className="flex items-center gap-2">
-        <span className="text-[#2563EB] font-bold text-xl hidden sm:inline">
+        <span className="text-[#2563EB] font-bold text-xl  ">
           <span className="text-black">Ali</span> The Analyst
         </span>
       </Link>
