@@ -9,20 +9,26 @@ import "slick-carousel/slick/slick-theme.css";
 
 const testimonials = [
   {
-    name: "أحمد سمير",
-    feedback: "الدورة ساعدتني أفهم تحليل البيانات بشكل عملي وسهل."
+    name: " يوسف الهديان",
+    feedback: " الله يعطيك العافية الشرح واضح وسهل.",
+    courses: "  كورس power bi "
   },
   {
-    name: "مها يوسف",
-    feedback: "المدرب رائع، وطريقة الشرح كانت سلسة وجذابة."
+    name: " احمد سري",
+    feedback: "افضل شي التدريب العملي اثناء المحاضرة.",
+        courses: "  كورس بايثون    "
+
   },
   {
-    name: "عبدالله خالد",
-    feedback: "أكتر حاجة حبيتها التنظيم والتمارين العملية."
+    name: "  نوف الشمري",
+    feedback: "الشرح مرة واضح وسهل.",
+     courses: "   كورس الاكسيل +SQL    "
   },
   {
-    name: "إيمان محمد",
-    feedback: "اتعلمت حاجات كتير جدًا في وقت قصير."
+    name: " أبو تميم",
+    feedback: "كل الشكر لك ي دكتور علي الشرح الرائع من خلال كورس بور بي تمكنت من اجتياز اختبار pl-300",
+    courses: "  كورس power bi "
+
   }
 ];
 
@@ -157,7 +163,7 @@ const About = () => {
                 whileHover={{ scale: 1.03 }}
               >
                 <p className="text-gray-700 mb-4 items-center flex justify-center">"{t.feedback}"</p>
-                <p className="text-right font-bold text-blue-600 items-center flex justify-center ">- {t.name}</p>
+                <p className="text-right font-bold text-blue-600 items-center flex justify-center "> {t.courses} - {t.name}</p>
               </motion.div>
             ))}
           </Slider>

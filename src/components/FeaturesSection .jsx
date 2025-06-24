@@ -28,8 +28,7 @@ const FeaturesSection = () => {
           </div>
           <h3 className="font-bold text-xl text-gray-800 mb-2">تعليم عملي من خبير حقيقي</h3>
           <p className="text-gray-600 text-sm">
-            هتتعلم البرمجة بأسلوب تطبيقي مباشر، على إيد Google Developer Expert.
-          </p>
+هتتعلم البرمجة وتحليل البيانات  بأسلوب تطبيقي مباشر، على يد محترفين في علوم البيانات          </p>
         </div>
 
         {/* Card 3 */}

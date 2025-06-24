@@ -13,7 +13,7 @@ const Footer = () => {
           <span className="text-black">Ali</span> The Analyst
         </span>
       </Link>              <p class="mt-6 text-sm">
-                منصة تعليمية بتقدّم محتوى عملي واحترافي في البرمجة، بإشراف مباشر
+                منصة تعليمية بتقدّم محتوى عملي واحترافي في البرمجة وتحليل البيانات، بإشراف مباشر
                 من خبراء في مجال علوم البيانات
               </p>
             </div>
@@ -56,9 +56,7 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <p class="pt-4 text-center text-xs md:text-sm pb-5">
-            Copyright 2024 © Company name. All Right Reserved.
-          </p>
+        
         </footer>
       </div>
     </>
