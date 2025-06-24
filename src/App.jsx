@@ -8,27 +8,28 @@ import Contact from "./Pages/Contact";
 import Fag from "./Pages/Faq";
 import Footer from "./Pages/Footer";
 import About from "./Pages/About";
+import AdminDashboard from "./Pages/AdminDashboard";
 
 function App() {
-
   return (
- <>
- <div>     <Navv/>
-      <Routes>
-   <Route path="/" element={<Home/>  } />
-   <Route path="/courses" element={<Courses/>  } />
-    <Route path="/courses/:id" element={<CourseDetails />} />
-   <Route path="/consultation" element={<Consultation/>  } />
-   <Route path="/contact" element={<Contact/>  } />
-   <Route path="/faqData" element={<Fag/>  } />
-   <Route path="/about" element={<About/>  } />
- 
-
-    </Routes>
-      <Footer/>
- </div>
- </>
-  )
+    <>
+      <div>
+        {" "}
+        <Navv />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/courses" element={<Courses />} />
+          <Route path="/courses/:id" element={<CourseDetails />} />
+          <Route path="/consultation" element={<Consultation />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/faqData" element={<Fag />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/dashboard" element={<AdminDashboard />} />
+        </Routes>
+        <Footer />
+      </div>
+    </>
+  );
 }
 
-export default App
+export default App;

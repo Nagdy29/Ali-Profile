@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 // ✅ صفحة الكورسات الرئيسية بكروت متحركة
-import { Link,  } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { CoursesData } from "./CoursesData";
 import { FaUserGraduate, FaClock } from "react-icons/fa";
 import { MdOutlinePriceChange } from "react-icons/md";
@@ -27,7 +27,7 @@ const Courses = () => {
           className="relative bg-[#FDFCF9] py-20 px-4 md:px-16 text-right overflow-hidden"
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ lessons: 0.8, ease: "easeOut" }}
         >
           {/* الزخارف */}
           <div className="absolute top-10 right-10 w-24 h-24 rounded-full bg-pink-300 opacity-30 border border-black border-dashed rotate-45"></div>
@@ -39,7 +39,8 @@ const Courses = () => {
             كل الدورات التدريبيه
           </h1>
           <p className="text-[#2EBFA5]">
-            <span className="text-[#2EBFA5]">كل الدورات التدريبيه</span> &nbsp; &gt; &nbsp;
+            <span className="text-[#2EBFA5]">كل الدورات التدريبيه</span> &nbsp;
+            &gt; &nbsp;
             <Link to="/">
               <span className="text-[#0B2B4E]">الرئيسية</span>
             </Link>
@@ -77,13 +78,16 @@ const Courses = () => {
           <Link
             to={`/courses/${course.id}`}
             key={course.id}
-            className={`bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transform transition-all duration-500 ease-in-out hover:-translate-y-1 animate-fade-in-up`}
-            style={{ animationDelay: `${index * 150}ms`, animationFillMode: "both" }}
+            className={`bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transform transition-all lessons-500 ease-in-out hover:-translate-y-1 animate-fade-in-up`}
+            style={{
+              animationDelay: `${index * 150}ms`,
+              animationFillMode: "both",
+            }}
           >
             <img
               src={course.image}
               alt={course.title}
-              className="w-full h-48 object-cover"
+              className="w-full h-56 object-cover  "
             />
             <div className="p-4 space-y-2">
               <h2 className="text-xl font-semibold text-gray-800">
@@ -97,10 +101,10 @@ const Courses = () => {
                 {course.students} طالب
               </div>
               <div className="flex items-center gap-3 text-sm text-gray-600">
-                <FaClock /> {course.duration}
+                <FaClock /> {course.lessons}
               </div>
-              <div className="flex items-center gap-3 text-sm text-gray-600">
-                <MdOutlinePriceChange /> {course.price} جنيه
+              <div className="flex items-center  gap-3 text-sm text-gray-600">
+                <MdOutlinePriceChange /> {course.price} ريال
               </div>
               <button className="mt-4 w-full bg-[#498DEE] hover:bg-blue-900 text-white py-2 rounded-md font-medium">
                 عرض التفاصيل

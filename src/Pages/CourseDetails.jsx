@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { CoursesData } from "./CoursesData";
-import { FaCheckCircle, FaWhatsapp } from "react-icons/fa";
+import { FaCheckCircle, FaWhatsapp, FaCopy } from "react-icons/fa";
 import Modal from "../components/Modal";
+import { db } from "../firebase";
+import { collection, addDoc } from "firebase/firestore";
 
 const CourseDetail = () => {
   const { id } = useParams();
-  const course = CoursesData.find((c) => c.id === id);
+  const course = CoursesData.find((c) => c.id === Number(id));
 
   const [form, setForm] = useState({
     name: "",
@@ -21,17 +23,41 @@ const CourseDetail = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const sendToWhatsApp = () => {
+  const getMessage = () => {
+    const fullPhone = `${form.countryCode}${form.phone}`;
+    return `👤 الاسم: ${form.name}\n📞 الهاتف: ${fullPhone}\n✉️ البريد: ${form.email}\n📚 الكورس المطلوب: ${course.name}\n💰 السعر: ${course.price} ريال`;
+  };
+
+  const sendToWhatsApp = async () => {
     if (!form.name || !form.phone || !form.email) {
       alert("من فضلك املأ جميع الحقول");
       return;
     }
 
-    const msg = `👤 الاسم: ${form.name}%0A📞 الهاتف: ${form.countryCode}${form.phone}%0A✉️ البريد: ${form.email}%0A📚 الكورس: ${course.name}%0A💰 السعر: ${course.price} جنيه`;
-    const phoneNumber = "201274512413"; // رقم المدرب
-    const url = `https://wa.me/${phoneNumber}?text=${msg}`;
+    const encodedMsg = encodeURIComponent(getMessage());
+    const phoneNumber = "201281022796";
+    const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMsg}`;
     window.open(url, "_blank");
+
+    await addDoc(collection(db, "requests"), {
+      name: form.name,
+      phone: form.phone,
+      countryCode: form.countryCode,
+      email: form.email,
+      course: course.name,
+      price: course.price,
+      createdAt: new Date(),
+    });
+
+    alert("✅ تم إرسال الطلب وتسجيله بنجاح!");
     setModalOpen(false);
+  };
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(getMessage());
+    alert(
+      "تم نسخ الرسالة، لو لم تظهر تلقائيًا في واتساب يمكنك لصقها يدويًا ✌️"
+    );
   };
 
   if (!course) {
@@ -42,19 +68,20 @@ const CourseDetail = () => {
     );
   }
 
+  const detailsToShow = course.details || [];
+
   return (
     <section className="container mx-auto px-4 py-10 flex flex-col md:flex-row-reverse gap-8">
-      {/* الصورة */}
       <div className="md:w-1/3 bg-white rounded-xl shadow-md p-4 space-y-4">
         <img
           src={course.image}
           alt={course.name}
-          className="w-full h-64 object-cover rounded-lg"
+          className="w-full h-56 object-cover rounded-lg"
         />
         <div className="text-center space-y-2">
           <h2 className="text-xl font-bold text-gray-800">{course.name}</h2>
           <p className="text-yellow-600 text-lg font-bold">
-            {course.price} جنيه
+            {course.price} ريال
           </p>
         </div>
         <button
@@ -66,7 +93,6 @@ const CourseDetail = () => {
         </button>
       </div>
 
-      {/* التفاصيل */}
       <div className="md:w-2/3 bg-white rounded-xl shadow p-6">
         <h1 className="text-2xl font-bold text-gray-800 mb-4">{course.name}</h1>
         <p className="text-gray-700 mb-6">{course.description}</p>
@@ -75,7 +101,7 @@ const CourseDetail = () => {
           ماذا ستتعلم في هذه الدورة؟
         </h3>
         <ul className="space-y-2">
-          {course.details.map((item, idx) => (
+          {detailsToShow.map((item, idx) => (
             <li key={idx} className="flex items-start gap-2 text-gray-700">
               <FaCheckCircle className="text-green-500 mt-1" />
               {item}
@@ -84,11 +110,12 @@ const CourseDetail = () => {
         </ul>
       </div>
 
-      {/* مودال */}
       {isModalOpen && (
         <Modal onClose={() => setModalOpen(false)}>
           <div className="bg-white p-6 rounded-lg shadow-xl max-w-md mx-auto">
-            <h2 className="text-xl font-bold mb-4 text-[#0B2B4E]">طلب الدورة</h2>
+            <h2 className="text-xl font-bold mb-4 text-[#0B2B4E]">
+              طلب الدورة
+            </h2>
             <input
               type="text"
               name="name"
@@ -122,6 +149,18 @@ const CourseDetail = () => {
               onChange={handleChange}
               className="w-full p-2 border rounded mb-2"
             />
+            <textarea
+              readOnly
+              value={getMessage()}
+              className="w-full p-2 border rounded text-sm text-gray-600 mb-2"
+              rows={4}
+            />
+            <button
+              onClick={copyToClipboard}
+              className="w-full bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded-lg mb-2 flex items-center justify-center gap-2"
+            >
+              <FaCopy /> نسخ الرسالة يدويًا
+            </button>
             <button
               onClick={sendToWhatsApp}
               className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg"

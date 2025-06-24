@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import logo from "../assets/logo.png";
 
 const Navv = () => {
   const [open, setOpen] = useState(false);
@@ -7,15 +8,29 @@ const Navv = () => {
   return (
     <nav className="flex items-center gap-11 justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 border-b border-gray-300 bg-white relative transition-all z-50">
       {/* لوجو */}
-      <Link to="/" className="text-5xl font-bold text-[#0B2B4E]">علي ربيع</Link>
+      <Link to="/" className="flex items-center gap-2">
+        <span className="text-[#2563EB] font-bold text-xl hidden sm:inline">
+          <span className="text-black">Ali</span> The Analyst
+        </span>
+      </Link>
 
       {/* ✅ Desktop Menu */}
       <div className="hidden sm:flex items-center gap-8">
-        <Link to="/" className="font-bold hover:text-[#4BA7E4]">الرئيسية</Link>
-        <Link to="/about" className="font-bold hover:text-[#4BA7E4]">من نحن</Link>
-        <Link to="/courses" className="font-bold hover:text-[#4BA7E4]">الدورات التدريبية</Link>
-        <Link to="/consultation" className="font-bold hover:text-[#4BA7E4]">طلب استشارة</Link>
-        <Link to="/faqData" className="font-bold hover:text-[#4BA7E4]">الأسئلة الشائعة</Link>
+        <Link to="/" className="font-bold hover:text-[#4BA7E4]">
+          الرئيسية
+        </Link>
+        <Link to="/about" className="font-bold hover:text-[#4BA7E4]">
+          من نحن
+        </Link>
+        <Link to="/courses" className="font-bold hover:text-[#4BA7E4]">
+          الدورات التدريبية
+        </Link>
+        <Link to="/consultation" className="font-bold hover:text-[#4BA7E4]">
+          طلب استشارة
+        </Link>
+        <Link to="/faqData" className="font-bold hover:text-[#4BA7E4]">
+          الأسئلة الشائعة
+        </Link>
       </div>
 
       {/* زر التواصل */}
@@ -63,19 +78,65 @@ const Navv = () => {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path d="M18 6L6 18" stroke="#000" strokeWidth="2" strokeLinecap="round" />
-                <path d="M6 6L18 18" stroke="#000" strokeWidth="2" strokeLinecap="round" />
+                <path
+                  d="M18 6L6 18"
+                  stroke="#000"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M6 6L18 18"
+                  stroke="#000"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
               </svg>
             </button>
           </div>
 
           {/* روابط الموبايل */}
-          <Link to="/" className="font-bold hover:text-[#4BA7E4]" onClick={() => setOpen(false)}>الرئيسية</Link>
-          <Link to="/about" className="font-bold hover:text-[#4BA7E4]" onClick={() => setOpen(false)}>من نحن</Link>
-          <Link to="/courses" className="font-bold hover:text-[#4BA7E4]" onClick={() => setOpen(false)}>الدورات التدريبية</Link>
-          <Link to="/consultation" className="font-bold hover:text-[#4BA7E4]" onClick={() => setOpen(false)}>طلب استشارة</Link>
-          <Link to="/faqData" className="font-bold hover:text-[#4BA7E4]" onClick={() => setOpen(false)}>الأسئلة الشائعة</Link>
-          <Link to="/contact" className="font-bold hover:text-[#4BA7E4]" onClick={() => setOpen(false)}>تواصل معنا</Link>
+          <Link
+            to="/"
+            className="font-bold hover:text-[#4BA7E4]"
+            onClick={() => setOpen(false)}
+          >
+            الرئيسية
+          </Link>
+          <Link
+            to="/about"
+            className="font-bold hover:text-[#4BA7E4]"
+            onClick={() => setOpen(false)}
+          >
+            من نحن
+          </Link>
+          <Link
+            to="/courses"
+            className="font-bold hover:text-[#4BA7E4]"
+            onClick={() => setOpen(false)}
+          >
+            الدورات التدريبية
+          </Link>
+          <Link
+            to="/consultation"
+            className="font-bold hover:text-[#4BA7E4]"
+            onClick={() => setOpen(false)}
+          >
+            طلب استشارة
+          </Link>
+          <Link
+            to="/faqData"
+            className="font-bold hover:text-[#4BA7E4]"
+            onClick={() => setOpen(false)}
+          >
+            الأسئلة الشائعة
+          </Link>
+          <Link
+            to="/contact"
+            className="font-bold hover:text-[#4BA7E4]"
+            onClick={() => setOpen(false)}
+          >
+            تواصل معنا
+          </Link>
         </div>
       )}
     </nav>

@@ -11,7 +11,7 @@ const Footer = () => {
               <h2 className="text-5xl font-bold text-blue-500">علي ربيع </h2>{" "}
               <p class="mt-6 text-sm">
                 منصة تعليمية بتقدّم محتوى عملي واحترافي في البرمجة، بإشراف مباشر
-                من Google Developer Expert.
+                من خبراء في مجال علوم البيانات
               </p>
             </div>
             <div class="flex-1 flex  md:justify-center gap-20">
@@ -47,8 +47,8 @@ const Footer = () => {
               <div>
                 <h2 class="font-semibold mb-5 text-gray-800">تواصل معنا</h2>
                 <div class="text-sm space-y-2">
-                  <p>+1-212-456-7890</p>
-                  <p>contact@example.com</p>
+                  <p>+201281022796</p>
+                  <p>rabeeali500@gmail.com</p>
                 </div>
               </div>
             </div>
