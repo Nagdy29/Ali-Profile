@@ -85,7 +85,7 @@ const Consultation = () => {
         </div>
 
         <div>
-          <label className="block text-gray-700 mb-1 font-semibold">نوع الاستشارة</label>
+          <label className="block text-gray-700 mb-1 font-semibold">مجال المشروع  </label>
           <select
             name="type"
             value={formData.type}
@@ -94,10 +94,10 @@ const Consultation = () => {
             required
           >
             <option value="">اختر نوع الاستشارة</option>
-            <option value="مالية">مالية</option>
-            <option value="قانونية">قانونية</option>
-            <option value="تسويقية">تسويقية</option>
-            <option value="تعليمية">تعليمية</option>
+            <option value="مالية">مبيعات </option>
+            <option value="قانونية">موارد بشاريه hr</option>
+            <option value="تسويقية"> الصحه </option>
+            <option value="تعليمية">مشروع تعليمي </option>
             <option value="أخرى">أخرى</option>
           </select>
         </div>
