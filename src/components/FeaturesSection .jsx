@@ -40,7 +40,7 @@ const FeaturesSection = () => {
               <div className="absolute bottom-0 left-0 w-5 h-5 bg-[#39BDF5] rounded-full -z-10"></div>
             </div>
           </div>
-          <h3 className="font-bold text-xl text-gray-800 mb-2">9 دورات تعليمية</h3>
+          <h3 className="font-bold text-xl text-gray-800 mb-2">5 دورات تعليمية</h3>
           <p className="text-gray-600 text-sm">
             استكشف مجموعة كبيرة ومتنوعة من الدورات التدريبية.
           </p>

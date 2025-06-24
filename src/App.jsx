@@ -9,13 +9,15 @@ import Fag from "./Pages/Faq";
 import Footer from "./Pages/Footer";
 import About from "./Pages/About";
 import AdminDashboard from "./Pages/AdminDashboard";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <>
       <div>
-        {" "}
         <Navv />
+        <ScrollToTop /> {/* ✅ هنا مكانه الصح */}
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/courses" element={<Courses />} />
@@ -26,6 +28,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/dashboard" element={<AdminDashboard />} />
         </Routes>
+
         <Footer />
       </div>
     </>

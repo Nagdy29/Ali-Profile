@@ -8,8 +8,11 @@ const Footer = () => {
         <footer class="px-6 md:px-16 lg:px-24 xl:px-32 pt-8 w-full text-gray-500">
           <div class="flex flex-col md:flex-row justify-center gap-10 border-b border-gray-500/30 pb-6">
             <div class="md:max-w-96">
-              <h2 className="text-5xl font-bold text-blue-500">علي ربيع </h2>{" "}
-              <p class="mt-6 text-sm">
+  <Link to="/" className="flex items-center gap-2">
+        <span className="text-[#2563EB] font-bold text-xl hidden sm:inline">
+          <span className="text-black">Ali</span> The Analyst
+        </span>
+      </Link>              <p class="mt-6 text-sm">
                 منصة تعليمية بتقدّم محتوى عملي واحترافي في البرمجة، بإشراف مباشر
                 من خبراء في مجال علوم البيانات
               </p>

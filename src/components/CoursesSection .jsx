@@ -50,7 +50,7 @@ const CoursesSection = () => {
                       {course.name}
                     </h3>
                     <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
-                      {course.lessons} دروس
+                      {course.lessons} ساعه
                     </span>
                   </div>
 
