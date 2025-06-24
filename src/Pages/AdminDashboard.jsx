@@ -1,32 +1,32 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { collection, onSnapshot, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../firebase";
 import { FaClipboardList } from "react-icons/fa";
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 
 const AdminDashboard = () => {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchRequests = async () => {
-    const querySnapshot = await getDocs(collection(db, "requests"));
-    const data = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    setRequests(data);
-    setLoading(false);
-  };
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, "requests"), (snapshot) => {
+      const data = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setRequests(data);
+      setLoading(false);
+    });
+
+    // ⛔️ مهمة جدًا: تنظيف الاشتراك لما الكمبوننت يتشال
+    return () => unsubscribe();
+  }, []);
 
   const deleteRequest = async (id) => {
     await deleteDoc(doc(db, "requests", id));
-    fetchRequests();
+    // مش محتاج تعمل fetch تاني، لأنه هيحصل تلقائي من onSnapshot
   };
-
-  useEffect(() => {
-    fetchRequests();
-  }, []);
 
   return (
     <motion.section
@@ -63,22 +63,11 @@ const AdminDashboard = () => {
               className="p-5 border rounded-xl shadow-md bg-white hover:shadow-lg transition duration-300 relative"
             >
               <div className="space-y-1 text-sm text-gray-700">
-                <p>
-                  <strong>👤 الاسم:</strong> {req.name}
-                </p>
-                <p>
-                  <strong>📞 الهاتف:</strong> {req.countryCode}
-                  {req.phone}
-                </p>
-                <p>
-                  <strong>✉️ البريد:</strong> {req.email}
-                </p>
-                <p>
-                  <strong>📚 الكورس:</strong> {req.course}
-                </p>
-                <p>
-                  <strong>💰 السعر:</strong> {req.price} ريال
-                </p>
+                <p><strong>👤 الاسم:</strong> {req.name}</p>
+                <p><strong>📞 الهاتف:</strong> {req.countryCode}{req.phone}</p>
+                <p><strong>✉️ البريد:</strong> {req.email}</p>
+                <p><strong>📚 الكورس:</strong> {req.course}</p>
+                <p><strong>💰 السعر:</strong> {req.price} ريال</p>
               </div>
               <button
                 onClick={() => deleteRequest(req.id)}
