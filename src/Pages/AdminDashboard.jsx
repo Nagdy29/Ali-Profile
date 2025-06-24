@@ -1,9 +1,12 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { collection, onSnapshot, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../firebase";
 import { FaClipboardList } from "react-icons/fa";
-// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
+import * as XLSX from "xlsx";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 const AdminDashboard = () => {
   const [requests, setRequests] = useState([]);
@@ -19,13 +22,39 @@ const AdminDashboard = () => {
       setLoading(false);
     });
 
-    // ⛔️ مهمة جدًا: تنظيف الاشتراك لما الكمبوننت يتشال
     return () => unsubscribe();
   }, []);
 
   const deleteRequest = async (id) => {
     await deleteDoc(doc(db, "requests", id));
-    // مش محتاج تعمل fetch تاني، لأنه هيحصل تلقائي من onSnapshot
+  };
+
+  // ✅ تصدير Excel
+  const exportToExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(requests);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "طلبات");
+
+    XLSX.writeFile(workbook, "طلب_الدورات.xlsx");
+  };
+
+  // ✅ تصدير PDF
+  const exportToPDF = () => {
+    const doc = new jsPDF();
+    const tableData = requests.map((req) => [
+      req.name,
+      req.phone,
+      req.email,
+      req.course,
+      req.price + " ريال"
+    ]);
+
+    autoTable(doc, {
+      head: [["الاسم", "الهاتف", "البريد", "الكورس", "السعر"]],
+      body: tableData,
+    });
+
+    doc.save("طلبات.pdf");
   };
 
   return (
@@ -35,11 +64,28 @@ const AdminDashboard = () => {
       transition={{ duration: 0.6 }}
       className="container mx-auto p-6"
     >
-      <div className="flex items-center gap-3 mb-10 text-[#2563EB] border-b pb-4">
-        <FaClipboardList className="text-3xl animate-pulse" />
-        <h1 className="text-3xl font-extrabold tracking-tight">
-          لوحة التحكم - الطلبات
-        </h1>
+      <div className="flex items-center justify-between gap-3 mb-10 text-[#2563EB] border-b pb-4">
+        <div className="flex items-center gap-3">
+          <FaClipboardList className="text-3xl animate-pulse" />
+          <h1 className="text-3xl font-extrabold tracking-tight">
+            لوحة التحكم - الطلبات
+          </h1>
+        </div>
+
+        <div className="flex gap-2">
+          <button
+            onClick={exportToExcel}
+            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded"
+          >
+            تحميل Excel
+          </button>
+          <button
+            onClick={exportToPDF}
+            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+          >
+            تحميل PDF
+          </button>
+        </div>
       </div>
 
       {loading ? (
