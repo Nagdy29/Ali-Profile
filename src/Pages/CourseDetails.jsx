@@ -1,10 +1,12 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { CoursesData } from "./CoursesData";
 import { FaCheckCircle, FaWhatsapp, FaCopy } from "react-icons/fa";
 import Modal from "../components/Modal";
 import { db } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
+import { motion } from "framer-motion";
 
 const CourseDetail = () => {
   const { id } = useParams();
@@ -55,9 +57,7 @@ const CourseDetail = () => {
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(getMessage());
-    alert(
-      "تم نسخ الرسالة، لو لم تظهر تلقائيًا في واتساب يمكنك لصقها يدويًا ✌️"
-    );
+    alert("تم نسخ الرسالة، لو لم تظهر تلقائيًا في واتساب يمكنك لصقها يدويًا ✌️");
   };
 
   if (!course) {
@@ -69,53 +69,91 @@ const CourseDetail = () => {
   }
 
   const detailsToShow = course.details || [];
+  const similarCourses = CoursesData.filter((c) => c.id !== course.id).slice(0, 2);
 
   return (
-    <section className="container mx-auto px-4 py-10 flex flex-col md:flex-row-reverse gap-8">
-      <div className="md:w-1/3 bg-white rounded-xl shadow-md p-4 space-y-4">
-        <img
-          src={course.image}
-          alt={course.name}
-          className="w-full h-56 object-cover rounded-lg"
-        />
-        <div className="text-center space-y-2">
-          <h2 className="text-xl font-bold text-gray-800">{course.name}</h2>
-          <p className="text-yellow-600 text-lg font-bold">
-            {course.price} ريال
-          </p>
+    <section className="container mx-auto px-4 py-10 space-y-10">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="bg-white rounded-xl shadow p-6 flex flex-col md:flex-row-reverse gap-8"
+      >
+        <div className="md:w-1/3">
+          <img
+            src={course.image}
+            alt={course.name}
+            className="w-full h-56 object-cover rounded-lg object-top"
+          />
+          <div className="text-center mt-4 space-y-1">
+            <h2 className="text-xl font-bold text-gray-800">{course.name}</h2>
+            <p className="text-yellow-600 text-lg font-bold">{course.price} ريال</p>
+            <p className="text-gray-500">عدد الساعات: {course.lessons} ساعة</p>
+            <p className="text-gray-500">التصنيف: {course.category}</p>
+            <button
+              onClick={() => setModalOpen(true)}
+              className="mt-4 w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-medium transition"
+            >
+              <FaWhatsapp className="inline-block ml-2" />
+              اطلب الآن عبر واتساب
+            </button>
+          </div>
+
+       
         </div>
-        <button
-          onClick={() => setModalOpen(true)}
-          className="mt-4 w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-medium transition"
-        >
-          <FaWhatsapp className="inline-block ml-2" />
-          اطلب الآن عبر واتساب
-        </button>
-      </div>
 
-      <div className="md:w-2/3 bg-white rounded-xl shadow p-6">
-        <h1 className="text-2xl font-bold text-gray-800 mb-4">{course.name}</h1>
-        <p className="text-gray-700 mb-6">{course.description}</p>
+        <div className="md:w-2/3">
+          <h1 className="text-2xl font-bold text-gray-800 mb-4">{course.name}</h1>
+          <p className="text-gray-700 mb-6">{course.description}</p>
 
-        <h3 className="text-lg font-semibold mb-3 text-[#7C5F53]">
-          ماذا ستتعلم في هذه الدورة؟
-        </h3>
-        <ul className="space-y-2">
-          {detailsToShow.map((item, idx) => (
-            <li key={idx} className="flex items-start gap-2 text-gray-700">
-              <FaCheckCircle className="text-green-500 mt-1" />
-              {item}
-            </li>
+          <h3 className="text-lg font-semibold mb-3 text-[#7C5F53]">
+            ماذا ستتعلم في هذه الدورة؟
+          </h3>
+          <ul className="space-y-2">
+            {detailsToShow.map((item, idx) => (
+              <li key={idx} className="flex items-start gap-2 text-gray-700">
+                <FaCheckCircle className="text-green-500 mt-1" /> {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </motion.div>
+
+      <div className="space-y-6">
+        <h2 className="text-xl font-bold text-blue-800 text-center border-b pb-2 w-fit mx-auto">
+          كورسات مشابهة
+        </h2>
+        <div className="grid sm:grid-cols-2 gap-6">
+          {similarCourses.map((c, i) => (
+            <motion.div
+              key={c.id}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.2 }}
+              className="bg-white rounded-lg shadow p-4 hover:shadow-md transition"
+            >
+              <img
+                src={c.image}
+                alt={c.name}
+                className="w-full h-70 object-cover rounded object-top"
+              />
+              <h3 className="mt-3 text-lg font-semibold text-gray-800">{c.name}</h3>
+              <p className="text-gray-600 text-sm mb-2">{c.price} ريال</p>
+              <Link
+                to={`/courses/${c.id}`}
+                className="inline-block mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm"
+              >
+                تفاصيل الكورس
+              </Link>
+            </motion.div>
           ))}
-        </ul>
+        </div>
       </div>
 
       {isModalOpen && (
         <Modal onClose={() => setModalOpen(false)}>
           <div className="bg-white p-6 rounded-lg shadow-xl max-w-md mx-auto">
-            <h2 className="text-xl font-bold mb-4 text-[#0B2B4E]">
-              طلب الدورة
-            </h2>
+            <h2 className="text-xl font-bold mb-4 text-[#0B2B4E]">طلب الدورة</h2>
             <input
               type="text"
               name="name"

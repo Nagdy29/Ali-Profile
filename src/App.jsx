@@ -11,6 +11,7 @@ import About from "./Pages/About";
 import AdminDashboard from "./Pages/AdminDashboard";
 import ScrollToTop from "./components/ScrollToTop";
 import WhatsappButton from "./components/WhatsappButton";
+import ScrollToTopButton from "./components/ScrollToTopButton";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/dashboard" element={<AdminDashboard />} />
         </Routes>
+        <ScrollToTopButton/>
 <WhatsappButton/>
         <Footer />
       </div>
